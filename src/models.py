@@ -1,6 +1,6 @@
 import os
 import sys
-from sqlalchemy import Column, ForeignKey, Integer, String, Unique, Enum
+from sqlalchemy import Column, ForeignKey, Integer, String, Enum
 from sqlalchemy.orm import relationship, declarative_base
 from sqlalchemy import create_engine
 from eralchemy2 import render_er
@@ -12,10 +12,10 @@ class User(Base):
     # Here we define columns for the table person
     # Notice that each column is also a normal Python instance attribute.
     UserId = Column(Integer, primary_key=True)
-    Username = Column(String(32), nullable=False, Unique=True)
+    Username = Column(String(32), nullable=False, unique=True) 
     FirstName = Column(String(250), nullable=True)
     LastName = Column(String(250), nullable=True)
-    Email = Column(String(250), nullable=True, Unique=True)
+    Email = Column(String(250), nullable=True, unique=True)
 
 
 class Post(Base):
@@ -23,10 +23,10 @@ class Post(Base):
     # Here we define columns for the table address.
     # Notice that each column is also a normal Python instance attribute.
     PostID = Column(Integer, primary_key=True)
-    User_ID = Column(Integer, ForeignKey('user.UserID'), nullable=False)
-    User = relationship('User', back_populates='posts')
-    media = relationship('media', back_populates='post')
-    comments - relationship('comment', back_populates='post')
+    User_ID = Column(Integer, ForeignKey('user.UserId'), nullable=False)  
+    user = relationship('User', back_populates='posts')  
+    media = relationship('Media', back_populates='post')
+    comments = relationship('Comment', back_populates='post')
 
 class Media(Base):
     __tablename__ = 'media'
